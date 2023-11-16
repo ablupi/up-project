@@ -1,5 +1,4 @@
 <template>
-  <div>首页傻逼</div>
   <RouterView></RouterView>
 </template>
 
