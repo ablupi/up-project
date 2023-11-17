@@ -5,12 +5,17 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/msg',
+    redirect: '/modal',
     children: [
       {
         path: '/msg',
         name: 'Msg',
-        component: () => import('@/views/message.vue'),
+        component: () => import('@/views/message/message.vue'),
+      },
+      {
+        path: '/modal',
+        name: 'Modal',
+        component: () => import('@/views/modal/modal.vue'),
       },
     ]
   },
