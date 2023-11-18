@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/modal',
+    redirect: '/search',
     children: [
       // 消息弹窗
       {
@@ -18,6 +18,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/modal',
         name: 'Modal',
         component: () => import('@/views/modal/modal.vue'),
+      },
+      // 输入框
+      {
+        path: '/search',
+        name: 'Search',
+        component: () => import('@/views/search/search.vue'),
       },
     ]
   },
