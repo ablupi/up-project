@@ -14,6 +14,27 @@
 - `npm install`
 - `yarn dev`
 
+## 通过路由切换更换模块
+- 打开router/index.ts，修改以下部分来更换模块
+```js
+{
+  path: '',
+  name: 'Index',
+  component: () => import('@/views/index.vue'),
+  redirect: '/modal', // 修改这里，如果想要展示对话框模块则重定向到对话框的路由
+  children: [
+    ...
+    // 对话框
+    {
+      path: '/modal',
+      name: 'Modal',
+      component: () => import('@/views/modal/modal.vue'),
+    },
+    ...
+  ]
+}
+```
+
 ## 问题收集
 
 - 不建议提交Issues来反馈问题，请添加群：519823105，向群主或管理反馈问题，谢谢。

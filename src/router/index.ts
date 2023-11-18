@@ -7,11 +7,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/index.vue'),
     redirect: '/modal',
     children: [
+      // 消息弹窗
       {
         path: '/msg',
         name: 'Msg',
         component: () => import('@/views/message/message.vue'),
       },
+      // 对话框
       {
         path: '/modal',
         name: 'Modal',
