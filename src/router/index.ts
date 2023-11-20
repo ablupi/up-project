@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/search',
+    redirect: '/tooltip',
     children: [
       // 消息弹窗
       {
@@ -24,6 +24,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/search',
         name: 'Search',
         component: () => import('@/views/search/search.vue'),
+      },
+      // 文字提示/消息提示/提示框
+      {
+        path: '/tooltip',
+        name: 'Tooltip',
+        component: () => import('@/views/tooltip/tooltip.vue'),
       },
     ]
   },
