@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip-view-main">
+  <div class="views-main">
     <o-tooltip placement="top">
       <div class="tooltip-button">消息提示-朝上</div>
       <template #tooltip>
@@ -38,7 +38,9 @@ import OTooltip from '@/components/tooltip/tooltip.vue'
   align-items: center;
   height: 100vh;
   width: 100vw;
-  .tooltip-button {
+  
+}
+.tooltip-button {
     background: var(--theme);
     height: 30px;
     padding: 0 8px;
@@ -51,5 +53,4 @@ import OTooltip from '@/components/tooltip/tooltip.vue'
   .msg {
     white-space: nowrap;
   }
-}
 </style>

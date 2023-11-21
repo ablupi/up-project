@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/tooltip',
+    redirect: '/pagination',
     children: [
       // 消息弹窗
       {
@@ -30,6 +30,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/tooltip',
         name: 'Tooltip',
         component: () => import('@/views/tooltip/tooltip.vue'),
+      },
+      // 分页
+      {
+        path: '/pagination',
+        name: 'Pagination',
+        component: () => import('@/views/pagination/pagination.vue'),
       },
     ]
   },
