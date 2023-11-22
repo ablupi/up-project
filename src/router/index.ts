@@ -37,6 +37,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Pagination',
         component: () => import('@/views/pagination/pagination.vue'),
       },
+      // 分页
+      {
+        path: '/popover',
+        name: 'popover',
+        component: () => import('@/views/popover/popover.vue'),
+      },
     ]
   },
 ]

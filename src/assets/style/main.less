@@ -16,14 +16,34 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  // background: url(../img/bg.png) no-repeat;
-  background-color: #ec9a6480;
-  // background-size:cover;
-  // background-position: center;
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(100px);
-  // filter: blur(100px);
+  position: relative;
+  &::before {
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // background: url(../img/bg.png) no-repeat;
+    background-color: #ec846433;
+    // background-size:cover;
+    // background-position: center;
+    // backdrop-filter: blur(100px);
+    // -webkit-backdrop-filter: blur(100px);
+    filter: blur(100px);
+  }
+}
+
+.btn-1 {
+  background: var(--theme);
+  height: 30px;
+  padding: 0 8px;
+  margin: 0 8px;
+  box-sizing: border-box;
+  line-height: 30px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
 }
 
 .global-msg {

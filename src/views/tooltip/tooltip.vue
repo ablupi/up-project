@@ -1,25 +1,25 @@
 <template>
   <div class="views-main">
     <o-tooltip placement="top">
-      <div class="tooltip-button">消息提示-朝上</div>
+      <div class="btn-1">消息提示-朝上</div>
       <template #tooltip>
         <p class="msg">消息提示</p>
       </template>
     </o-tooltip>
     <o-tooltip placement="right">
-      <div class="tooltip-button">消息提示-朝右</div>
+      <div class="btn-1">消息提示-朝右</div>
       <template #tooltip>
         <p class="msg">消息提示</p>
       </template>
     </o-tooltip>
     <o-tooltip  placement="bottom">
-      <div class="tooltip-button">消息提示-朝下</div>
+      <div class="btn-1">消息提示-朝下</div>
       <template #tooltip>
         <p class="msg">消息提示</p>
       </template>
     </o-tooltip>
     <o-tooltip placement="left">
-      <div class="tooltip-button">消息提示-朝左</div>
+      <div class="btn-1">消息提示-朝左</div>
       <template #tooltip>
         <p class="msg">消息提示</p>
       </template>
@@ -40,16 +40,6 @@ import OTooltip from '@/components/tooltip/tooltip.vue'
   width: 100vw;
   
 }
-.tooltip-button {
-    background: var(--theme);
-    height: 30px;
-    padding: 0 8px;
-    margin: 0 8px;
-    box-sizing: border-box;
-    line-height: 30px;
-    border-radius: 5px;
-    color: #fff;
-  }
   .msg {
     white-space: nowrap;
   }
