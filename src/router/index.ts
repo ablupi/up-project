@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/pagination',
+    redirect: '/select',
     children: [
       // 消息弹窗
       {
@@ -42,6 +42,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/popover',
         name: 'popover',
         component: () => import('@/views/popover/popover.vue'),
+      },
+      // 下拉选择
+      {
+        path: '/select',
+        name: 'Select',
+        component: () => import('@/views/select/select.vue'),
       },
     ]
   },
