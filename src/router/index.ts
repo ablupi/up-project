@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/select',
+    redirect: '/pagination',
     children: [
       // 消息弹窗
       {

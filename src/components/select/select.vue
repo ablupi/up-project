@@ -7,7 +7,10 @@
       type="text" 
       name="select-input"
       @input="input"
-      :value="inputValue"/>
+      :value="inputValue"
+      v-if="showSearch"
+    />
+    <p v-else>{{ inputValue }}</p>
     <Transition name="popup">
       <div v-if="showPopup" class="select-popup">
         <div 
@@ -23,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits, withDefaults } from 'vue'
+import { ref, defineProps, defineEmits, withDefaults, onMounted } from 'vue'
 
 interface SelectOption {
   key: string | number,
@@ -32,7 +35,8 @@ interface SelectOption {
 
 interface Props {
   modelValue?: string | number,
-  data: Array<SelectOption>
+  data: Array<SelectOption>,
+  showSearch?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -43,6 +47,10 @@ const emits = defineEmits(['update:modelValue', 'input', 'select'])
 
 const showPopup = ref(false)
 const inputValue = ref<string | undefined>(props.data.find(p => p.key===props.modelValue)?.text)
+
+onMounted(() => {
+  console.log(props.showSearch)
+})
 
 const select = (item: SelectOption) => {
   inputValue.value = item.text
@@ -84,6 +92,13 @@ const input = (e: any) => {
     outline: none;
     background: none;
     margin-left: 10px;
+    width: 80%;
+  }
+  & > p {
+    margin: 0 37px 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .select-popup {
     background: #fff;

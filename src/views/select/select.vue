@@ -4,7 +4,8 @@
       :data="selectData"
       v-model="selectValue"
       @select="select"
-      @input="input">
+      @input="input"
+      show-search>
     </o-select>
   </div>
 </template>
@@ -14,7 +15,7 @@ import { ref } from 'vue'
 import OSelect from '@/components/select/select.vue'
 
 const originData = [
-  { key: 1, text: '选项1' },
+  { key: 1, text: '测试长选项测试长选项测试长选项' },
   { key: 2, text: '选项2' },
   { key: 3, text: '选项3' },
   { key: 4, text: '选项4' },
