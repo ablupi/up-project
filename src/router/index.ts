@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/pagination',
+    redirect: '/drawer',
     children: [
       // 消息弹窗
       {
@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Pagination',
         component: () => import('@/views/pagination/pagination.vue'),
       },
-      // 分页
+      // 气泡卡片
       {
         path: '/popover',
         name: 'popover',
@@ -48,6 +48,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/select',
         name: 'Select',
         component: () => import('@/views/select/select.vue'),
+      },
+      // 抽屉
+      {
+        path: '/drawer',
+        name: 'Drawer',
+        component: () => import('@/views/drawer/drawer.vue'),
       },
     ]
   },
