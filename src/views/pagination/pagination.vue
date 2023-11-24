@@ -1,6 +1,7 @@
 <template>
   <div class="views-main">
     <o-pagination
+      v-model:page-size="pageSize"
       :page="page"
       @data-prev="dataPrev"
       @data-next="dataNext"
@@ -12,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import OPagination from '@/components/pagination/pagination.vue'
 
 // 具体字段名要看后端列表接口的分页字段
@@ -29,6 +30,8 @@ let page = reactive<Page>({
   max_page: 4,
   page_count: 1
 })
+
+const pageSize = ref('5')
 
 const dataPrev = () => {
 

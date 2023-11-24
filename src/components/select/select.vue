@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits, withDefaults, onMounted } from 'vue'
+import { ref, defineProps, defineEmits, withDefaults } from 'vue'
 
 interface SelectOption {
   key: string | number,
@@ -48,14 +48,10 @@ const emits = defineEmits(['update:modelValue', 'input', 'select'])
 const showPopup = ref(false)
 const inputValue = ref<string | undefined>(props.data.find(p => p.key===props.modelValue)?.text)
 
-onMounted(() => {
-  console.log(props.showSearch)
-})
-
 const select = (item: SelectOption) => {
   inputValue.value = item.text
   emits('update:modelValue', item.key)
-  emits('select')
+  emits('select', item)
 }
 
 const input = (e: any) => {
