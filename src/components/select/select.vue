@@ -89,9 +89,11 @@ const input = (e: any) => {
     background: none;
     margin-left: 10px;
     width: 80%;
+    height: 100%;
+    font-size: 16px;
   }
   & > p {
-    margin: 0 37px 0 10px;
+    margin: 0 30px 0 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -1,12 +1,28 @@
 <template>
   <div class="views-main">
-    <o-select 
-      :data="selectData"
-      v-model="selectValue"
-      @select="select"
-      @input="input"
-      show-search>
-    </o-select>
+    <div class="views-item">
+      <p>输入选择框：</p>
+      <p>非输入选择框：</p>
+    </div>
+    <div class="views-item">
+      <o-select
+        :data="selectData"
+        v-model="selectValue"
+        @select="select"
+        @input="input"
+        show-search
+      >
+      </o-select>
+      <o-select
+        :data="selectData"
+        v-model="selectValue"
+        @select="select"
+        @input="input"
+      >
+      </o-select>
+    </div>
+      
+      
   </div>
 </template>
 
@@ -33,10 +49,19 @@ const select = () => {
 
 const input = (value: string) => {
   console.log(value)
-  selectData.value = originData.filter(p => p.text.includes(value))
+  selectData.value = originData.filter((p) => p.text.includes(value))
 }
 </script>
 
 <style scoped lang="less">
-
+.views-main {
+}
+.views-item {
+  display: grid;
+  grid-row-gap: 15px;
+  text-align: right;
+  & > p {
+    color: #000000c0;
+  }
+}
 </style>
