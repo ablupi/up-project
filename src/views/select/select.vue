@@ -54,8 +54,6 @@ const input = (value: string) => {
 </script>
 
 <style scoped lang="less">
-.views-main {
-}
 .views-item {
   display: grid;
   grid-row-gap: 15px;

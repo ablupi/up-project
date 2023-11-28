@@ -55,6 +55,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Drawer',
         component: () => import('@/views/drawer/drawer.vue'),
       },
+      // 
+      {
+        path: '/switch',
+        name: 'Switch',
+        component: () => import('@/views/switch/switch.vue'),
+      },
     ]
   },
 ]
