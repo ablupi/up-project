@@ -5,14 +5,14 @@
 ## 项目下载
 
 - 电脑上有git环境的可以直接拉下来使用，`git clone -b master git@github.com:ablupi/up-project.git`
-- 没有git环境就直接下载压缩包
+- 没有git环境就直接下载压缩包，下载完后在项目根目录打开控制台依次输入：`npm install`、`npm run dev`
 
 ## 项目运行
 
 依次运行以下指令
 
 - `npm install`
-- `yarn dev`
+- `yarn dev`或者`npm run dev`
 
 ## 通过路由切换更换模块
 - 打开router/index.ts，修改以下部分来更换模块
