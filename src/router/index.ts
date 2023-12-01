@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/drawer',
+    redirect: '/slider',
     children: [
       // 消息弹窗
       {
@@ -55,11 +55,17 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Drawer',
         component: () => import('@/views/drawer/drawer.vue'),
       },
-      // 
+      // 开关
       {
         path: '/switch',
         name: 'Switch',
         component: () => import('@/views/switch/switch.vue'),
+      },
+      // 滑动条
+      {
+        path: '/slider',
+        name: 'Slider',
+        component: () => import('@/views/slider/slider.vue'),
       },
     ]
   },

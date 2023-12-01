@@ -1,5 +1,5 @@
 <template>
-  <button class="tooltip-main" ref="content">
+  <button class="tooltip-main" ref="content" :class="[`tooltip-main-${props.trigger}`]">
     <div 
       class="animate__animated tooltip"
       :class="[state.animate]"
@@ -22,6 +22,10 @@ const props = defineProps({
   placement: {
     type: String,
     default: 'top'
+  },
+  trigger: {
+    type: String,
+    default: 'focus'
   }
 })
 
@@ -69,7 +73,17 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  
+}
+.tooltip-main-focus {
   &:focus {
+    .tooltip {
+      display: flex;
+    }
+  }
+}
+.tooltip-main-hover {
+  &:hover {
     .tooltip {
       display: flex;
     }
