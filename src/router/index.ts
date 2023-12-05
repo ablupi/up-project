@@ -1,11 +1,12 @@
 import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router'
+import store from '../store/index'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/slider',
+    redirect: '/menu',
     children: [
       // 消息弹窗
       {
@@ -67,6 +68,58 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Slider',
         component: () => import('@/views/slider/slider.vue'),
       },
+      // 水平菜单
+      {
+        path: '/menu',
+        name: 'Menu',
+        component: () => import('@/views/menu/menu.vue'),
+        // 需要自行添加测试用的页面用来跳转，
+        // 因为菜单需要高度绑定路由跳转来实现切换，如果只是样式上切换的话就没什么意义了
+        redirect: '/menu/home',
+        children: [
+          {
+            path: '/menu/home',
+            name: 'Home',
+            component: () => import('@/views/menu/route/home.vue'),
+            // meta字段用于页面切换过度动画，后续会用到
+            meta: {
+              index: 1
+            },
+          },
+          {
+            path: '/menu/news',
+            name: 'News',
+            component: () => import('@/views/menu/route/news.vue'),
+            meta: {
+              index: 2
+            },
+          },
+          {
+            path: '/menu/about',
+            name: 'About',
+            component: () => import('@/views/menu/route/about.vue'),
+            meta: {
+              index: 3
+            },
+          },
+          {
+            path: '/menu/contact',
+            name: 'Contact',
+            component: () => import('@/views/menu/route/contact.vue'),
+            meta: {
+              index: 4
+            },
+          },
+          {
+            path: '/menu/recruit',
+            name: 'Recruit',
+            component: () => import('@/views/menu/route/recruit.vue'),
+            meta: {
+              index: 5
+            },
+          },
+        ]
+      },
     ]
   },
 ]
@@ -78,6 +131,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  // 在路由守卫中存储菜单key
+  store.commit('setMenuKey', to.name)
   next()
 })
 
