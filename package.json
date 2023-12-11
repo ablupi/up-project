@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/node": "^20.9.0",
     "animate.css": "^4.1.1",
+    "element-resize-detector": "^1.2.4",
     "less": "^4.2.0",
     "uuid": "^9.0.1",
     "vue": "^3.3.4",

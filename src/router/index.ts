@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/menu',
+    redirect: '/cascader',
     children: [
       // 消息弹窗
       {
@@ -119,6 +119,12 @@ const routes: Array<RouteRecordRaw> = [
             },
           },
         ]
+      },
+      // 级联下拉选择器
+      {
+        path: '/cascader',
+        name: 'Cascader',
+        component: () => import('@/views/cascader/cascader.vue'),
       },
     ]
   },
