@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/cascader',
+    redirect: '/tree',
     children: [
       // 消息弹窗
       {
@@ -125,6 +125,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/cascader',
         name: 'Cascader',
         component: () => import('@/views/cascader/cascader.vue'),
+      },
+      // 树形组件
+      {
+        path: '/tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/tree.vue'),
       },
     ]
   },
