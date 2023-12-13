@@ -3,8 +3,8 @@
     <div class="tree-main">
       <o-tree 
         :tree-options="treeData"
-        :padding="20"
         is-accordion
+        type="menu"
         @click-item="clickItem">
       </o-tree>
     </div>

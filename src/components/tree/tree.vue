@@ -70,7 +70,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   treeOptions: () => [],
-  padding: 0,
+  padding: 20,
   isAccordion: false,
   type: 'default'
 })
@@ -149,6 +149,7 @@ const toggle = (item: TreeOption) => {
       border-right: 3px solid #242527;
       border-bottom: 3px solid #242527;
       box-sizing: border-box;
+      margin-right: 20px;
       transform: rotate(-45deg);
       transition: .2s;
       position: absolute;
