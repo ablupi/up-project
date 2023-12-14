@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/tree',
+    redirect: '/treeSelect',
     children: [
       // 消息弹窗
       {
@@ -131,6 +131,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/tree',
         name: 'Tree',
         component: () => import('@/views/tree/tree.vue'),
+      },
+      // 树选择组件
+      {
+        path: '/treeSelect',
+        name: 'TreeSelect',
+        component: () => import('@/views/treeSelect/treeSelect.vue'),
       },
     ]
   },

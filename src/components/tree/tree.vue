@@ -7,8 +7,9 @@
       type="radio" 
       :id="`${item.key}`"
       hidden
+      :checked="item.isChecked"
       name="tree-item"
-      @click="toggle(item)">
+      @click="toggle(item, $event)">
     <!-- 菜单模式 -->
     <label 
       :for="`${item.key}`" 
@@ -42,7 +43,9 @@
           :type="type"
           :padding="padding + 14"
           @click-item="$emit('clickItem', $event)"
-          :is-accordion="isAccordion">
+          :is-accordion="isAccordion"
+          v-model="treeValue"
+          v-model:expanded-keys="childExpandedKeys">
         </o-tree-item>
       </div>
     </div>
@@ -50,33 +53,39 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps, onMounted, defineEmits, reactive } from 'vue'
+import { withDefaults, defineProps, onMounted, defineEmits, reactive, ref,watch } from 'vue'
 import OTreeItem from '@/components/tree/tree.vue'
 
-interface TreeOption {
+export interface TreeOption {
   key: number | string,
   label: string,
   isFolder?: boolean,
   children?: Array<TreeOption>,
-  isOpen?: boolean
+  isOpen?: boolean,
+  isChecked?: boolean
 }
 
 interface Props {
   treeOptions: Array<TreeOption>,
   padding?: number,
   isAccordion?: boolean,
-  type?: string
+  type?: string,
+  modelValue?: string | number,
+  expandedKeys?: Array<string> | Array<number>
 }
 
 const props = withDefaults(defineProps<Props>(), {
   treeOptions: () => [],
   padding: 20,
   isAccordion: false,
-  type: 'default'
+  type: 'default',
+  expandedKeys: () => []
 })
 
-const emits = defineEmits(['clickItem'])
+const emits = defineEmits(['update:modelValue', 'update:expandedKeys', 'clickItem'])
 
+const treeValue = ref(props.modelValue)
+const childExpandedKeys = ref<Array<string> | Array<number>>(props.expandedKeys)
 const state = reactive({
   isMenu: false
 })
@@ -84,16 +93,29 @@ const state = reactive({
 onMounted(() => {
   // 预处理数据
   props.treeOptions.forEach(p => {
+    
     if (p.children && p.children.length) {
       p.isFolder = true
+      if (props.expandedKeys.includes(p.key)) {
+        p.isOpen = true
+      }
+
     }
+    if (props.modelValue && props.modelValue === p.key) {
+      p.isChecked = true
+    }
+    // if (props.modelValue && p.key === props.modelValue) {
+    //   if (p.isFolder)
+    //     p.isOpen = true
+    // }
   })
   if (props.type === 'menu')
     state.isMenu = true
 })
 
 // 处理选择事件
-const toggle = (item: TreeOption) => {
+const toggle = (item: TreeOption, test: any) => {
+  console.log(test)
   if (item.isFolder) {
     // 手风琴模式
     if (props.isAccordion) {
@@ -110,6 +132,7 @@ const toggle = (item: TreeOption) => {
   }
   else {
     emits('clickItem', item)
+    emits('update:modelValue', item.key)
   }
 }
 </script>

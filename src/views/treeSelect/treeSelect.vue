@@ -1,33 +1,27 @@
 <template>
   <div class="views-main">
-    <div class="tree-main">
-      <o-tree 
-        :tree-options="treeData"
-        is-accordion
-        type="menu"
-        @click-item="clickItem"
-        v-model="treeValue"
-        v-model:expanded-keys="expandedKeys">
-      </o-tree>
-    </div>
+    <o-tree-select 
+      :tree-select-data="treeData"
+      v-model="selectValue">
+    </o-tree-select>
   </div>
 </template>
 
 <script setup lang="ts">
-import OTree from '@/components/tree/tree.vue'
 import { ref } from 'vue'
+import OTreeSelect, { TreeSelectOption } from '@/components/treeSelect/treeSelect-test.vue'
 
-const treeValue = ref(7)
-const expandedKeys = ref([1])
+const selectValue = ref(7)
+
 // 创建数据
-const treeData = ref([
+const treeData = ref<Array<TreeSelectOption>>([
   { key: 1, label: '选项1', children: [
-    { key: 7, label: '选项2', children: [
+    { key: 7, label: '选项2' },
+    { key: 8, label: '选项2', children: [
       { key: 13, label: '选项2' },
       { key: 14, label: '选项2' },
       { key: 15, label: '选项2' },
     ]  },
-    { key: 8, label: '选项2'},
     { key: 9, label: '选项2', children: [
       { key: 16, label: '选项2' },
       { key: 17, label: '选项2' },
@@ -57,22 +51,4 @@ const treeData = ref([
   ] },
 ])
 
-const clickItem = (item: any) => {
-  console.log(item)
-}
-
 </script>
-
-<style scoped lang="less">
-.views-main::before {
-  background-image: none;
-}
-.tree-main {
-  /* height: 300px; */
-  /* max-height: 250px; */
-  // width: 200px;
-  position: relative;
-  height: 500px;
-  // background: #fff;
-}
-</style>

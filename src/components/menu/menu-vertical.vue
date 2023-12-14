@@ -5,9 +5,7 @@
         :tree-options="treeData"
         is-accordion
         type="menu"
-        @click-item="clickItem"
-        v-model="treeValue"
-        v-model:expanded-keys="expandedKeys">
+        @click-item="clickItem">
       </o-tree>
     </div>
   </div>
@@ -17,17 +15,15 @@
 import OTree from '@/components/tree/tree.vue'
 import { ref } from 'vue'
 
-const treeValue = ref(7)
-const expandedKeys = ref([1])
 // 创建数据
 const treeData = ref([
   { key: 1, label: '选项1', children: [
-    { key: 7, label: '选项2', children: [
+    { key: 7, label: '选项2' },
+    { key: 8, label: '选项2', children: [
       { key: 13, label: '选项2' },
       { key: 14, label: '选项2' },
       { key: 15, label: '选项2' },
     ]  },
-    { key: 8, label: '选项2'},
     { key: 9, label: '选项2', children: [
       { key: 16, label: '选项2' },
       { key: 17, label: '选项2' },
