@@ -121,6 +121,7 @@ onMounted(() => {
     }
     if (props.modelValue && props.modelValue === p.key) {
       p.isChecked = true
+      emits('clickItem', p)
     }
   })
   if (props.type === 'menu')

@@ -3,7 +3,11 @@
     <o-tree-select 
       :tree-select-data="treeData"
       v-model="selectValue"
-      v-model:expanded-keys="expandedKeys">
+      v-model:expanded-keys="expandedKeys"
+      @expand="expandHandle"
+      @select-item="selectItem"
+      @input="selectInput"
+      is-accordion>
     </o-tree-select>
   </div>
 </template>
@@ -51,5 +55,17 @@ const treeData = ref<Array<TreeSelectOption>>([
     { key: 27, label: '选项2' },
   ] },
 ])
+
+const expandHandle = () => {
+  console.log(expandedKeys.value)
+}
+
+const selectItem = () => {
+  console.log(selectValue.value)
+}
+
+const selectInput = (value: string) => {
+  console.log(value)
+}
 
 </script>

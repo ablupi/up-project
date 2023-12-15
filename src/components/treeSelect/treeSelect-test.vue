@@ -5,14 +5,12 @@
       @click="state.isShow = !state.isShow"
       ref="inputRef"
     >
-      <form>
-        <input
-          type="search"
-          :placeholder="placeholder"
-          v-model="state.current"
-          @keyup.enter="inputSearch(state.current)"
-        />
-      </form>
+      <input
+        type="text"
+        :placeholder="placeholder"
+        v-model="state.current"
+        @input="inputSearch"
+      />
       <div class="icon-triangle" :class="{ 'icon-open': state.isShow }"></div>
     </div>
     <!-- 下拉菜单选项内容 -->
@@ -20,9 +18,10 @@
       <div class="tree-main" ref="treeRef" v-show="state.isShow">
         <o-tree 
           :tree-options="treeSelectData"
-          is-accordion
+          :is-accordion="isAccordion"
           type="menu"
           @click-item="clickItem"
+          @expand="treeExpand"
           v-model="treeValue"
           v-model:expanded-keys="expandedKeys">
         </o-tree>
@@ -40,24 +39,24 @@ interface Props {
   treeSelectData: Array<TreeSelectOption>,
   modelValue?: string | number,
   placeholder?: string,
-  expandedKeys?: Array<string> | Array<number>
+  expandedKeys?: Array<string> | Array<number>,
+  isAccordion?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   treeSelectData: () => [],
   placeholder: '请选择',
-  expandedKeys: () => []
+  expandedKeys: () => [],
+  isAccordion: false
 })
 
 const emits = defineEmits([
   'update:modelValue', 
   'update:expandedKeys',
   'selectItem', 
-  'loadMore', 
-  'inputClick'
+  'input',
+  'expand'
 ])
-
-
 
 const state = reactive({
   current: '',
@@ -75,8 +74,6 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('click', clickOther)
-  // if (props.modelValue)
-
 })
 
 const clickItem = (item: TreeSelectOption) => {
@@ -85,6 +82,11 @@ const clickItem = (item: TreeSelectOption) => {
   emits('update:modelValue', item.key)
   emits('selectItem', item)
 }
+
+const treeExpand = () => {
+  emits('expand', expandedKeys.value)
+}
+
 const clickOther = (event: any) => {
   const e = event || window.event
   if (
@@ -95,9 +97,10 @@ const clickOther = (event: any) => {
     state.isShow = false
   }
 }
-const inputSearch = (value: any) => {
+
+const inputSearch = () => {
   state.isShow = true
-  emits('inputClick', value)
+  emits('input', state.current)
 }
 </script>
 
@@ -110,7 +113,7 @@ const inputSearch = (value: any) => {
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
-    border-radius: 7px;
+    border-radius: 6px;
     width: inherit;
     height: 36px;
     input {
@@ -131,10 +134,6 @@ const inputSearch = (value: any) => {
       &::-ms-input-placeholder {
         line-height: normal;
         font-size: 12px;
-      }
-
-      &::-webkit-search-cancel-button {
-        -webkit-appearance: none;
       }
     }
     .icon-triangle {
@@ -161,7 +160,7 @@ const inputSearch = (value: any) => {
     position: absolute;
     background-color: #fff;
     box-shadow: 0px 2px 10px 0px #c5c9cf80;
-    border-radius: 10px;
+    border-radius: 6px;
     margin-top: 8px;
     overflow-y: auto;
     padding: 6px 0px;
