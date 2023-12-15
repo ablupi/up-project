@@ -3,10 +3,12 @@
     <div class="tree-main">
       <o-tree 
         :tree-options="treeData"
-        is-accordion
-        type="menu"
+        :is-accordion="false"
+        type="default"
         @click-item="clickItem"
+        @expand="treeExpand"
         v-model="treeValue"
+        v-model:checked-keys="checkedKeys"
         v-model:expanded-keys="expandedKeys">
       </o-tree>
     </div>
@@ -14,13 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import OTree from '@/components/tree/tree.vue'
+import OTree, { TreeOption } from '@/components/tree/tree.vue'
 import { ref } from 'vue'
 
-const treeValue = ref(7)
-const expandedKeys = ref([1])
+const treeValue = ref(13)
+const checkedKeys = ref([13])
+const expandedKeys = ref([1,7])
 // 创建数据
-const treeData = ref([
+const treeData = ref<Array<TreeOption>>([
   { key: 1, label: '选项1', children: [
     { key: 7, label: '选项2', children: [
       { key: 13, label: '选项2' },
@@ -59,6 +62,11 @@ const treeData = ref([
 
 const clickItem = (item: any) => {
   console.log(item)
+  console.log(treeValue.value)
+}
+
+const treeExpand = (value: Array<number>) => {
+  console.log(value)
 }
 
 </script>

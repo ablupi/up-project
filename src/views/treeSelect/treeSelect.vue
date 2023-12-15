@@ -2,7 +2,8 @@
   <div class="views-main">
     <o-tree-select 
       :tree-select-data="treeData"
-      v-model="selectValue">
+      v-model="selectValue"
+      v-model:expanded-keys="expandedKeys">
     </o-tree-select>
   </div>
 </template>
@@ -12,7 +13,7 @@ import { ref } from 'vue'
 import OTreeSelect, { TreeSelectOption } from '@/components/treeSelect/treeSelect-test.vue'
 
 const selectValue = ref(7)
-
+const expandedKeys = ref([1])
 // 创建数据
 const treeData = ref<Array<TreeSelectOption>>([
   { key: 1, label: '选项1', children: [

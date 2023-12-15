@@ -9,7 +9,8 @@
       hidden
       :checked="item.isChecked"
       name="tree-item"
-      @click="toggle(item, $event)">
+      @click="toggle(item)"
+      >
     <!-- 菜单模式 -->
     <label 
       :for="`${item.key}`" 
@@ -43,8 +44,10 @@
           :type="type"
           :padding="padding + 14"
           @click-item="$emit('clickItem', $event)"
+          @expand="$emit('expand', $event)"
           :is-accordion="isAccordion"
           v-model="treeValue"
+          v-model:checked-keys="childCheckedKeys"
           v-model:expanded-keys="childExpandedKeys">
         </o-tree-item>
       </div>
@@ -53,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps, onMounted, defineEmits, reactive, ref,watch } from 'vue'
+import { withDefaults, defineProps, onMounted, defineEmits, reactive, ref, computed } from 'vue'
 import OTreeItem from '@/components/tree/tree.vue'
 
 export interface TreeOption {
@@ -70,8 +73,9 @@ interface Props {
   padding?: number,
   isAccordion?: boolean,
   type?: string,
-  modelValue?: string | number,
-  expandedKeys?: Array<string> | Array<number>
+  modelValue?: string | number | undefined,
+  checkedKeys?: Array<string | number>,
+  expandedKeys?: Array<string | number>
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -79,13 +83,29 @@ const props = withDefaults(defineProps<Props>(), {
   padding: 20,
   isAccordion: false,
   type: 'default',
+  checkedKeys: () => [],
   expandedKeys: () => []
-})
+ })
 
-const emits = defineEmits(['update:modelValue', 'update:expandedKeys', 'clickItem'])
+const emits = defineEmits([
+  'update:modelValue', 
+  'update:checkedKeys', 
+  'update:expandedKeys', 
+  'clickItem', 
+  'expand'
+])
 
-const treeValue = ref(props.modelValue)
-const childExpandedKeys = ref<Array<string> | Array<number>>(props.expandedKeys)
+const treeValue = computed({
+  get() {
+    return props.modelValue; 
+  },
+  set(value) {
+    emits('update:modelValue', value); 
+  }
+});
+
+const childCheckedKeys = ref<Array<string | number>>(props.checkedKeys)
+const childExpandedKeys = ref<Array<string | number>>(props.expandedKeys)
 const state = reactive({
   isMenu: false
 })
@@ -93,29 +113,22 @@ const state = reactive({
 onMounted(() => {
   // 预处理数据
   props.treeOptions.forEach(p => {
-    
     if (p.children && p.children.length) {
       p.isFolder = true
       if (props.expandedKeys.includes(p.key)) {
         p.isOpen = true
       }
-
     }
     if (props.modelValue && props.modelValue === p.key) {
       p.isChecked = true
     }
-    // if (props.modelValue && p.key === props.modelValue) {
-    //   if (p.isFolder)
-    //     p.isOpen = true
-    // }
   })
   if (props.type === 'menu')
     state.isMenu = true
 })
 
 // 处理选择事件
-const toggle = (item: TreeOption, test: any) => {
-  console.log(test)
+const toggle = (item: TreeOption) => {
   if (item.isFolder) {
     // 手风琴模式
     if (props.isAccordion) {
@@ -124,17 +137,35 @@ const toggle = (item: TreeOption, test: any) => {
           p.isOpen = !p.isOpen
         else
           p.isOpen = false
+        // 手风琴模式的展开事件会循环调用，待解决
+        expandHandle(p)
       }
     }
     else {
       item.isOpen = !item.isOpen
+      expandHandle(item)
     }
   }
   else {
+    treeValue.value = item.key
     emits('clickItem', item)
-    emits('update:modelValue', item.key)
   }
 }
+
+const expandHandle = (item: TreeOption) => {
+  if (item.isOpen) {
+    childExpandedKeys.value.push(item.key)
+  }
+  else {
+    const index = childExpandedKeys.value.findIndex(p => p === item.key)
+    if (index !== -1) {
+      childExpandedKeys.value.splice(index, 1)
+    }
+  }
+  emits('update:expandedKeys', childExpandedKeys.value)
+  emits('expand', childExpandedKeys.value)
+}
+
 </script>
 
 <style scoped lang="less">

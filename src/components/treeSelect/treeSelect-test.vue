@@ -22,7 +22,9 @@
           :tree-options="treeSelectData"
           is-accordion
           type="menu"
-          @click-item="clickItem">
+          @click-item="clickItem"
+          v-model="treeValue"
+          v-model:expanded-keys="expandedKeys">
         </o-tree>
       </div>
     </transition>
@@ -37,15 +39,25 @@ export interface TreeSelectOption extends TreeOption {}
 interface Props {
   treeSelectData: Array<TreeSelectOption>,
   modelValue?: string | number,
-  placeholder?: string
+  placeholder?: string,
+  expandedKeys?: Array<string> | Array<number>
 }
 
 const props = withDefaults(defineProps<Props>(), {
   treeSelectData: () => [],
-  placeholder: '请选择'
+  placeholder: '请选择',
+  expandedKeys: () => []
 })
 
-const emits = defineEmits(['update:modelValue', 'selectItem', 'loadMore', 'inputClick'])
+const emits = defineEmits([
+  'update:modelValue', 
+  'update:expandedKeys',
+  'selectItem', 
+  'loadMore', 
+  'inputClick'
+])
+
+
 
 const state = reactive({
   current: '',
@@ -54,6 +66,8 @@ const state = reactive({
 
 const treeRef = ref()
 const inputRef = ref()
+const treeValue = ref(props.modelValue)
+const expandedKeys = ref(props.expandedKeys)
 
 onMounted(() => {
   window.addEventListener('click', clickOther)
