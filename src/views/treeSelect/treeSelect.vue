@@ -1,12 +1,13 @@
 <template>
   <div class="views-main">
-    <o-tree-select 
+    <o-tree-select
       :tree-select-data="treeData"
       v-model="selectValue"
       v-model:expanded-keys="expandedKeys"
       @expand="expandHandle"
       @select-item="selectItem"
       @input="selectInput"
+      show-search
       is-accordion>
     </o-tree-select>
   </div>
@@ -14,11 +15,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import OTreeSelect, { TreeSelectOption } from '@/components/treeSelect/treeSelect-test.vue'
+import OTreeSelect, { TreeSelectOption } from '@/components/treeSelect/treeSelect.vue'
 
 const selectValue = ref(7)
 const expandedKeys = ref([1])
-// 创建数据
+
+// 创建模拟数据
 const treeData = ref<Array<TreeSelectOption>>([
   { key: 1, label: '选项1', children: [
     { key: 7, label: '选项2' },
@@ -67,5 +69,4 @@ const selectItem = () => {
 const selectInput = (value: string) => {
   console.log(value)
 }
-
 </script>
