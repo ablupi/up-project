@@ -1,4 +1,4 @@
-import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router'
 import store from '../store/index'
 
 const routes: Array<RouteRecordRaw> = [
@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/treeSelect',
+    redirect: '/popover',
     children: [
       // 消息弹窗
       {
@@ -132,19 +132,25 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Tree',
         component: () => import('@/views/tree/tree.vue'),
       },
-      // 树选择组件
+      // 树选择
       {
         path: '/treeSelect',
         name: 'TreeSelect',
         component: () => import('@/views/treeSelect/treeSelect.vue'),
+      },
+      // 级联
+      {
+        path: '/treeCascader',
+        name: 'TreeCascader',
+        component: () => import('@/views/tree/tree-cascader.vue'),
       },
     ]
   },
 ]
 
 const router = createRouter({
-  // history: createWebHistory(process.env.BASE_URL),
-  history: createWebHashHistory(import.meta.env.BASE_URL), //修改后
+  history: createWebHistory(import.meta.env.BASE_URL),
+  // history: createWebHashHistory(import.meta.env.BASE_URL), //修改后
   routes,
 })
 

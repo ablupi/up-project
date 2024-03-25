@@ -1,29 +1,27 @@
 <template>
   <div class="views-main">
     <div class="tree-main">
-      <o-tree 
-        :tree-options="treeData"
-        :is-accordion="false"
-        type="default"
+      <o-tree-cascade 
+        :data="treeData"
         @click-item="clickItem"
         @expand="treeExpand"
         v-model="treeValue"
         v-model:checked-keys="checkedKeys"
         v-model:expanded-keys="expandedKeys">
-      </o-tree>
+      </o-tree-cascade>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import OTree, { TreeOption } from '@/components/tree/tree-cascader.vue'
+import OTreeCascade, { CascadeOption } from '@/components/tree/cascade.vue'
 import { ref } from 'vue'
 
 const treeValue = ref(13)
 const checkedKeys = ref([13])
 const expandedKeys = ref([1,7])
 // 创建数据
-const treeData = ref<Array<TreeOption>>([
+const treeData = ref<Array<CascadeOption>>([
   { key: 1, label: '选项1', children: [
     { key: 7, label: '选项2', children: [
       { key: 13, label: '选项2' },

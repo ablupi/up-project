@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import OCascader from '@/components/cascader/cascader.vue'
+import OCascader from '@/components/cascader/cascader-test.vue'
 import { ref } from 'vue'
 
 const dropdownData = ref([
