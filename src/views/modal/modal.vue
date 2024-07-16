@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import OModal from '@/components/modal/modal.vue'
-import OTableSearch from '@/components/search-test/table-search.vue'
+import OTableSearch from '@/components/search/search.vue'
 import { reactive } from 'vue'
 
 const state = reactive({

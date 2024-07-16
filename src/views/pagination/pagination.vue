@@ -7,6 +7,7 @@
       @data-next="dataNext"
       @navi-change="naviChange"
       @to-page="toPage"
+      show-size
     >
     </o-pagination>
   </div>
@@ -14,38 +15,31 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import OPagination from '@/components/pagination/pagination.vue'
-
-// 具体字段名要看后端列表接口的分页字段
-interface Page {
-  limit?: number,
-  max_count: number,
-  max_page: number,
-  page_count: number
-}
+import OPagination, { Page } from '@/components/pagination/pagination.vue'
 
 let page = reactive<Page>({
   limit: 8,
   max_count: 30,
-  max_page: 4,
+  max_page: 15,
   page_count: 1
 })
 
 const pageSize = ref('5')
 
 const dataPrev = () => {
-
+  page.page_count = page.page_count - 1
 }
 
 const dataNext = () => {
-
+  page.page_count = page.page_count + 1
 }
 
-const naviChange = () => {
-  
+const naviChange = (pageCount: number) => {
+  page.page_count = pageCount
 }
-const toPage = () => {
-  
+const toPage = (count: number) => {
+  page.page_count = count
+
 }
 
 </script>
