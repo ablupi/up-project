@@ -1,7 +1,6 @@
 <template>
   <div class="navigation">
-    <div class="navi-count" :class="{ 'navi-slide-not': page.page_count == 1 }"
-      @click="dataPrev">
+    <div class="navi-count" :class="{ 'navi-slide-not': page.page_count == 1 }" @click="dataPrev">
       上一页
     </div>
     <div class="navi-child" v-if="page.max_page < 10">
@@ -52,11 +51,23 @@
       </div>
       <p>页</p>
     </div>
+    <o-select :data="selectData" v-model="selectValue" @select="select" @input="input" style="width: 120px;">
+    </o-select>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, defineEmits, withDefaults, ref } from 'vue'
+import OSelect from '@/components/select/select.vue'
+
+const originData = [
+  { key: 1, text: '10 条/页' },
+  { key: 2, text: '20 条/页' },
+  { key: 3, text: '30 条/页' },
+  { key: 4, text: '40 条/页' },
+]
+
 
 export interface Page {
   limit?: number
@@ -100,8 +111,20 @@ const dataNext = () => {
 }
 
 const dataPrev = () => {
-  if (props.page.page_count != 1) 
+  if (props.page.page_count != 1)
     emit('dataPrev')
+}
+
+const selectData = ref(JSON.parse(JSON.stringify(originData)))
+const selectValue = ref(1)
+
+const select = () => {
+  console.log(selectValue.value)
+}
+
+const input = (value: string) => {
+  console.log(value)
+  selectData.value = originData.filter((p) => p.text.includes(value))
 }
 </script>
 
@@ -161,7 +184,7 @@ const dataPrev = () => {
   .navi-slide-not {
     background: #dddddd;
     cursor: not-allowed;
-    border-color: #dddddd !important; 
+    border-color: #dddddd !important;
     color: #82868C !important;
   }
 
