@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/select',
         name: 'Select',
-        component: () => import('@/views/select/select.vue'),
+        component: () => import('@/views/select/select-reset.vue'),
       },
       // 抽屉
       {

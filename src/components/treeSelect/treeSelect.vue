@@ -42,7 +42,8 @@ interface Props {
   placeholder?: string,
   expandedKeys?: Array<string> | Array<number>,
   isAccordion?: boolean,
-  showSearch?: boolean
+  showSearch?: boolean,
+  isMenu?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -50,7 +51,8 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: '请选择',
   expandedKeys: () => [],
   isAccordion: false,
-  showSearch: false
+  showSearch: false,
+  isMenu: false
 })
 
 const emits = defineEmits([

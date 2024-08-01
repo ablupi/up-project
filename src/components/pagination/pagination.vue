@@ -1,161 +1,160 @@
 <template>
-  <div class="navigation">
-    <div class="navi-count" :class="{ 'navi-slide-not': page.page_count == 1 }" @click="dataPrev">
+  <div class="pagination">
+    <button class="paging-count" :class="{ 'paging-slide-not': page.current === 1 }" @click="dataPrev">
       上一页
-    </div>
-    <div class="navi-child" v-if="page.max_page < 10">
-      <div v-for="count in page.max_page" :key="count">
-        <input type="radio" name="navigation" :id="`navi${count}`" hidden :checked="count == page.page_count"
-          @change="naviChange(count)">
-        <label class="navi-count" :for="`navi${count}`">{{ count }}</label>
+    </button>
+    <div class="paging-child" v-if="page.page < 10">
+      <div v-for="count in page.page" :key="count">
+        <input type="radio" name="pagination" :id="`paging${count}`" hidden :checked="count === page.current"
+          @change="pagingChange(count)">
+        <label :for="`paging${count}`" class="paging-count">{{ count }}</label>
       </div>
     </div>
-    <div class="navi-child" v-else-if="page.max_page >= 10 && page.page_count < 5">
+    <div class="paging-child" v-else-if="page.page >= 10 && page.current < 5">
       <div v-for="count in 5" :key="count">
-        <input type="radio" name="navigation" :id="`navi${count}`" hidden :checked="count == page.page_count"
-          @change="naviChange(count)">
-        <label class="navi-count" :for="`navi${count}`">{{ count }}</label>
+        <input type="radio" name="pagination" :id="`paging${count}`" hidden :checked="count === page.current"
+          @change="pagingChange(count)">
+        <label :for="`paging${count}`" class="paging-count">{{ count }}</label>
       </div>
-      <div class="navi-count">···</div>
-      <div class="navi-count" @click="emit('toPage', page.max_page)">{{ page.max_page }}</div>
+      <div class="paging-count">···</div>
+      <div class="paging-count" @click="emits('toPage', page.page)">{{ page.page }}</div>
     </div>
-    <div class="navi-child" v-else-if="page.max_page >= 10 && page.page_count < page.max_page - 3">
-      <div class="navi-count" @click="emit('toPage', 1)">1</div>
-      <div class="navi-count">···</div>
+    <div class="paging-child" v-else-if="page.page >= 10 && page.current < page.page - 3">
+      <div class="paging-count" @click="emits('toPage', 1)">1</div>
+      <div class="paging-count">···</div>
       <div v-for="count in 5" :key="count">
-        <div class="navi-count" :class="{ 'div-checked': props.page.max_page + count - 3 == props.page.max_page }"
-          @click="naviChange(page.page_count + count - 3)">{{ page.page_count + count - 3 }}</div>
+        <div :for="`paging${count}`" class="paging-count"
+          :class="{ 'div-checked': page.page + count - 3 === page.page }"
+          @click="pagingChange(page.current + count - 3)">{{ page.current + count - 3 }}</div>
       </div>
-      <div class="navi-count">···</div>
-      <div class="navi-count" @click="emit('toPage', page.max_page)">{{ page.max_page }}</div>
+      <div class="paging-count">···</div>
+      <div class="paging-count" @click="emits('toPage', page.page)">{{ page.page }}</div>
     </div>
-    <div class="navi-child" v-else-if="page.max_page >= 10 && page.page_count >= page.max_page - 3">
-      <div class="navi-count" @click="emit('toPage', 1)">1</div>
-      <div class="navi-count">···</div>
+    <div class="paging-child" v-else-if="page.page >= 10 && page.current >= page.page - 3">
+      <div class="paging-count" @click="emits('toPage', 1)">1</div>
+      <div class="paging-count">···</div>
       <div v-for="count in 5" :key="count">
-        <input type="radio" name="navigation" :id="`navi${count}`" hidden
-          :checked="page.max_page + count - 5 == page.page_count" @change="naviChange(page.max_page + count - 5)">
-        <label class="navi-count" :for="`navi${count}`">{{ page.max_page + count - 5 }}</label>
+        <input type="radio" name="pagination" :id="`paging${count}`" hidden
+          :checked="page.page + count - 5 === page.current" @change="pagingChange(page.page + count - 5)">
+        <label :for="`paging${count}`" class="paging-count">{{ page.page + count - 5 }}</label>
       </div>
     </div>
-    <div class="navi-count" :class="{ 'navi-slide-not': page.page_count == page.max_page || page.max_page == 0 }"
-      style="margin-right: 32px;" @click="dataNext">
+    <button class="paging-count" :class="{ 'paging-slide-not': page.current === page.page || page.page === 0 }"
+      @click="dataNext">
       下一页
-    </div>
-    <div class="search-layout" v-if="showSize">
+    </button>
+    <div class="search-layout">
       <p>前往</p>
-      <div class="navi-count count-input" style="margin: 0 6px;">
+      <div class="paging-count count-input">
         <form @submit.prevent="toPage">
           <input type="text" v-model="searchText">
         </form>
       </div>
       <p>页</p>
     </div>
-    <o-select :data="selectData" v-model="selectValue" @select="select" @input="input" style="width: 120px;">
-    </o-select>
-
+    <o-tree-select :tree-select-data="treeData" v-model="page.limit" @select-item="selectItem" is-menu
+      class="select-reset"></o-tree-select>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, withDefaults, ref } from 'vue'
-import OSelect from '@/components/select/select.vue'
-
-const originData = [
-  { key: 1, text: '10 条/页' },
-  { key: 2, text: '20 条/页' },
-  { key: 3, text: '30 条/页' },
-  { key: 4, text: '40 条/页' },
-]
-
+import { defineEmits, defineProps, withDefaults, ref, computed } from 'vue';
+import OTreeSelect, { TreeSelectOption } from '@/components/treeSelect/treeSelect.vue'
 
 export interface Page {
-  limit?: number
-  max_count: number
-  max_page: number
-  page_count: number
+  limit: number
+  count: number
+  page: number
+  current: number
 }
 
 interface Props {
   page: Page
-  showSize?: boolean
+  showSize: boolean
+  pageSizeOptions?: number[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
   page: () => ({
-    limit: 8,
-    max_count: 0,
-    max_page: 0,
-    page_count: 1
+    limit: 10,    // 每页数量
+    count: 0,     // 总计
+    page: 0,      // 总页数
+    current: 1    // 当前页
   }),
-  showSize: false
+  showSize: false,
+  pageSizeOptions: () => [10, 20, 30, 40]
 })
 
-const emit = defineEmits(['dataPrev', 'naviChange', 'dataNext', 'toPage'])
+const emits = defineEmits([
+  'dataPrev',       // 上一页
+  'pagingChange',   // 页码改变事件
+  'dataNext',       // 下一页
+  'toPage',         // 页面跳转
+  'selectChange'    // 每页数量改变事件
+])
 
 const searchText = ref('1')
 
-const naviChange = (count: number) => {
-  emit('naviChange', count)
+const treeData = computed<Array<TreeSelectOption>>(() => {
+  return props.pageSizeOptions.map(item => {
+    return { key: item, label: `${item} 条/页` }
+  })
+})
+
+const pagingChange = (count: number) => {
+  emits('pagingChange', count)
+}
+
+const dataPrev = () => {
+  if (props.page.current != 1)
+    emits('dataPrev')
+}
+
+const dataNext = () => {
+  if (props.page.current != props.page.page)
+    emits('dataNext')
 }
 
 const toPage = () => {
   const count = parseInt(searchText.value)
-  if (!count || count > props.page.max_page) return
-  emit('toPage', count)
+  if (!count || count > props.page.page) return
+  emits('toPage', count)
 }
 
-const dataNext = () => {
-  if (props.page.page_count != props.page.max_page)
-    emit('dataNext')
+const selectItem = () => {
+  emits('selectChange', props.page.limit)
 }
 
-const dataPrev = () => {
-  if (props.page.page_count != 1)
-    emit('dataPrev')
-}
-
-const selectData = ref(JSON.parse(JSON.stringify(originData)))
-const selectValue = ref(1)
-
-const select = () => {
-  console.log(selectValue.value)
-}
-
-const input = (value: string) => {
-  console.log(value)
-  selectData.value = originData.filter((p) => p.text.includes(value))
-}
 </script>
 
 <style lang="less" scoped>
-.navigation {
+.pagination {
   display: flex;
   align-items: center;
   margin: 40px 0;
   gap: 9px;
   align-self: center;
 
-  .navi-child {
+  .paging-child {
     display: flex;
     gap: 9px;
   }
 
-  .navi-count {
+  .paging-count {
     height: 32px;
     min-height: 32px;
     background: #fff;
     font-size: 14px;
-    font-family: OpenSans-Regular, OpenSans;
-    color: #82868C;
+    color: var(--font-color);
     line-height: 30px;
     padding: 0 12px;
-    box-sizing: border-box;
+    box-shadow: border-box;
     cursor: pointer;
     transition: .4s;
     display: block;
     border-radius: 4px;
-    border: 1px solid #E1E1E1;
+    border: 1px solid #e1e1e1;
+    text-wrap: nowrap;
 
     &:hover {
       border-color: var(--theme);
@@ -170,22 +169,22 @@ const input = (value: string) => {
 
     &:hover {
       color: #fff;
-      border-color: #E1E1E1;
+      border-color: #e1e1e1;
     }
   }
 
   p {
     font-size: 14px;
-    font-family: SourceHanSansCN-Regular, SourceHanSansCN;
-    color: #82868C;
+    color: var(--font-color);
     line-height: 14px;
+    text-wrap: nowrap;
   }
 
-  .navi-slide-not {
+  .paging-slide-not {
     background: #dddddd;
     cursor: not-allowed;
     border-color: #dddddd !important;
-    color: #82868C !important;
+    color: var(--font-color) !important;
   }
 
   .count-input {
@@ -193,6 +192,7 @@ const input = (value: string) => {
     overflow: hidden;
     display: flex;
     justify-content: center;
+    margin: 0 6px;
 
     input {
       background: none;
@@ -200,16 +200,33 @@ const input = (value: string) => {
       outline: none;
       height: 100%;
       font-size: 16px;
-      font-family: OpenSans-Regular, OpenSans;
-      color: #82868C;
+      color: var(--font-color);
       line-height: 36px;
-      width: 10px;
+      width: 20px;
+      text-align: center;
     }
   }
 
   .search-layout {
     display: flex;
     align-items: center;
+    margin-left: 12px
+  }
+
+  .select-reset {
+    width: 100px;
+    margin-left: 12px;
+    & /deep/ .input-main {
+      border: 1px solid #e1e1e1;
+      .select-layout p {
+        color: var(--font-color);
+      }
+    }
+    & /deep/ .tree-main {
+      .title-menu > p {
+        color: var(--font-color);
+      }
+    }
   }
 }
 </style>
