@@ -43,7 +43,7 @@
       @click="dataNext">
       下一页
     </button>
-    <div class="search-layout">
+    <div class="search-layout" v-if="showSize">
       <p>前往</p>
       <div class="paging-count count-input">
         <form @submit.prevent="toPage">

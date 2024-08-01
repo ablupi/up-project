@@ -1,12 +1,13 @@
 <template>
   <div class="views-main">
     <o-pagination
-    :page="page"
-    @data-prev="dataPrev"
-    @data-next="dataNext"
-    @to-page="toPage"
-    @paging-change="pagingChange"
-    @select-change="selectChange">
+      :page="page"
+      @data-prev="dataPrev"
+      @data-next="dataNext"
+      @to-page="toPage"
+      @paging-change="pagingChange"
+      @select-change="selectChange"
+      show-size>
     </o-pagination>
   </div>
 </template>
@@ -41,6 +42,7 @@ const pagingChange = (count: number) => {
 const selectChange = (limit: number) => {
   page.limit = limit
   page.page = Math.ceil(page.count / page.limit)
+  page.current = 1
 }
 
 </script>
