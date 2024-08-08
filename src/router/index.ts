@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'Index',
     component: () => import('@/views/index.vue'),
-    redirect: '/pagination',
+    redirect: '/cascader',
     children: [
       // 消息弹窗
       {
