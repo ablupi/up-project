@@ -8,11 +8,14 @@
 
       </o-menu>
     </div>
-    <router-view v-slot="{ Component }">
-      <Transition :name="transitionName">
-        <component :is="Component" />
-      </Transition>
-    </router-view>
+    <div class="layout-content">
+      <router-view v-slot="{ Component }">
+        <Transition :name="transitionName">
+          <component :is="Component" />
+        </Transition>
+      </router-view>
+
+    </div>
 
   </div>
 </template>
@@ -47,7 +50,7 @@ const checkedItem = ref('Msg')
 
 onMounted(() => {
   console.log(router.options.routes)
-  
+
 })
 
 // 在路由守卫中通过meta来判断页面切换时的方向
@@ -70,7 +73,7 @@ router.beforeEach((to: any, from: any) => {
 .views-main {
   display: flex;
   position: relative;
-
+  background: none;
   // height: 100vh;
   // width: 100vw;
   .layout-sider {
@@ -89,6 +92,12 @@ router.beforeEach((to: any, from: any) => {
       }
     }
   }
+  .layout-content {
+    overflow: hidden;
+    display: flex;
+    position: relative; 
+    flex-wrap: 1;
+  }
 }
 
 // 编写页面切换动画
@@ -96,17 +105,21 @@ router.beforeEach((to: any, from: any) => {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.5s;
+  transition: transform 2s;
 }
+
 .slide-right-enter-from {
   transform: translateX(100%);
 }
+
 .slide-right-enter-to {
   transform: translateX(0);
 }
+
 .slide-right-leave-from {
   transform: translateX(0);
 }
+
 .slide-right-leave-to {
   transform: translateX(-100%);
 }
@@ -114,12 +127,15 @@ router.beforeEach((to: any, from: any) => {
 .slide-left-enter-from {
   transform: translateX(-100%);
 }
+
 .slide-left-enter-to {
   transform: translateX(0);
 }
+
 .slide-left-leave-from {
   transform: translateX(0);
 }
+
 .slide-left-leave-to {
   transform: translateX(100%);
 }

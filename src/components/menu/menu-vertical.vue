@@ -1,6 +1,13 @@
 <template>
   <div class="tree-main">
-    <o-tree :tree-options="treeOptions" is-accordion type="menu" @click-item="linkRoute" v-model="checkedKey">
+    <o-tree 
+      :tree-options="treeOptions" 
+      is-accordion 
+      type="menu" 
+      @click-item="linkRoute" 
+      v-model="checkedKey"
+      id="menu"
+      >
     </o-tree>
   </div>
 </template>

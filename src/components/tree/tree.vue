@@ -8,7 +8,7 @@
       :id="`${item.key}`"
       hidden
       :checked="item.isChecked"
-      name="tree-item"
+      :name="`tree-item-${id}`"
       @click="toggle(item)"
       >
     <!-- 菜单模式 -->
@@ -48,7 +48,8 @@
           :is-accordion="isAccordion"
           v-model="treeValue"
           v-model:checked-keys="childCheckedKeys"
-          v-model:expanded-keys="childExpandedKeys">
+          v-model:expanded-keys="childExpandedKeys"
+          :id="id + '1'">
         </o-tree-item>
       </div>
     </div>
@@ -75,7 +76,8 @@ interface Props {
   type?: string,
   modelValue?: string | number | undefined,
   checkedKeys?: Array<string | number>,
-  expandedKeys?: Array<string | number>
+  expandedKeys?: Array<string | number>,
+  id?: number | string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -84,7 +86,8 @@ const props = withDefaults(defineProps<Props>(), {
   isAccordion: false,
   type: 'default',
   checkedKeys: () => [],
-  expandedKeys: () => []
+  expandedKeys: () => [],
+  id: 0
  })
 
 const emits = defineEmits([
