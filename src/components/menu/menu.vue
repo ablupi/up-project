@@ -32,17 +32,9 @@
 <script setup lang="ts">
 import { ref, withDefaults, defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { MenuOption } from './type'
 
 const router = useRouter()
-
-interface MenuOption {
-  key: string,
-  title: string,
-  checked: boolean,
-  link: string,
-  props?: any,
-  children?: Array<MenuOption>
-}
 
 interface Props {
   modelValue?: string,

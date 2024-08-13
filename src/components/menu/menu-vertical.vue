@@ -1,70 +1,79 @@
 <template>
-  <!-- <div class="views-main"> -->
   <div class="tree-main">
-    <o-tree :tree-options="treeData" is-accordion type="menu" @click-item="clickItem">
+    <o-tree :tree-options="treeOptions" is-accordion type="menu" @click-item="linkRoute" v-model="checkedKey">
     </o-tree>
   </div>
-  <!-- </div> -->
 </template>
 
 <script setup lang="ts">
-import OTree from '@/components/tree/tree.vue'
-import { ref } from 'vue'
+import OTree, { TreeOption } from '@/components/tree/tree.vue'
+import { ref, defineEmits, defineProps, withDefaults, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-// 创建数据
-const treeData = ref([
-  {
-    key: 1, label: '选项1', children: [
-      { key: 7, label: '选项2' },
-      {
-        key: 8, label: '选项2', children: [
-          { key: 13, label: '选项2' },
-          { key: 14, label: '选项2' },
-          { key: 15, label: '选项2' },
-        ]
-      },
-      {
-        key: 9, label: '选项2', children: [
-          { key: 16, label: '选项2' },
-          { key: 17, label: '选项2' },
-          { key: 18, label: '选项2' },
-        ]
-      },
-    ]
-  },
-  {
-    key: 2, label: '选项2', children: [
-      { key: 10, label: '选项2' },
-      { key: 11, label: '选项2' },
-      {
-        key: 12, label: '选项2', children: [
-          {
-            key: 19, label: '选项2', children: [
-              { key: 20, label: '选项2' },
-              { key: 21, label: '选项2' },
-            ]
-          },
-        ]
-      },
-    ]
-  },
-  { key: 3, label: '选项3' },
-  { key: 4, label: '选项4' },
-  { key: 5, label: '选项5' },
-  {
-    key: 6, label: '选项6', children: [
-      { key: 22, label: '选项2' },
-      { key: 23, label: '选项2' },
-      { key: 24, label: '选项2' },
-      { key: 25, label: '选项2' },
-      { key: 26, label: '选项2' },
-      { key: 27, label: '选项2' },
-    ]
-  },
-])
+const router = useRouter()
 
-const clickItem = (item: any) => {
-  console.log(item)
+interface Props {
+  modelValue?: string,
+  options: Array<TreeOption>
+}
+
+const props = withDefaults(defineProps<Props>(),{
+  options: () => []
+})
+
+const emits = defineEmits(['update:modelValue', 'change'])
+
+const isFirstLoad = ref(true)
+const checkedKey = ref(props.modelValue)
+const treeOptions = ref(props.options)
+
+// 需要监听路由跳转
+watch(() => router.currentRoute.value, (value: any) => {
+  // 防止首次加载时重复加载，需价格判断
+  if (isFirstLoad.value) {
+    isFirstLoad.value = false
+    return
+  }
+  checkMenu(value.name, treeOptions.value)
+}, { deep: true, immediate: true })
+
+onMounted(() => {
+  const topPath = checkedKey.value || 'Home'
+  checkMenu(topPath, treeOptions.value)
+
+})
+
+// 菜单点击函数
+const checkMenu = (name: string, menu: Array<TreeOption>, flag = 'main') => {
+  for (const item of menu) {
+    item.isChecked = false
+    if (item.key === name && flag === 'node') {
+      return true
+    }
+    else if (item.key === name && flag === 'main') {
+      item.isChecked = true
+    }
+    // 需要判断是否有子项，并递归
+    if (item.children) {
+      if (checkMenu(name, item.children, 'node')) {
+        item.isChecked = true
+      }
+    }
+  }
+  return false
+}
+
+// 路由跳转函数
+const linkRoute = (menu: TreeOption) => {
+  // 防止事件冒泡
+  // e.stopPropagation()
+  // props用于给url传递参数，需要配合route的props参数
+  // if (menu.props)
+  //   router.push({ name: menu.key.toString(), params: {...menu.props} })
+  // else 
+    router.push({ name: menu.key.toString() })
+  emits('update:modelValue', menu.key)
+  emits('change')
 }
 
 </script>
