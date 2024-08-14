@@ -4,7 +4,7 @@
 
 ## 项目下载
 
-- 电脑上有git环境的可以直接拉下来使用，`git clone -b master git@github.com:ablupi/up-project.git`
+- 电脑上有git环境的可以直接拉下来使用，`git clone git@github.com:ablupi/up-project.git`
 - 没有git环境就直接下载压缩包
 
 ## 项目运行
@@ -14,27 +14,6 @@
 - `npm install`
 - `yarn dev`或者`npm run dev`
 
-## 通过路由切换更换模块
-- 打开router/index.ts，修改以下部分来更换模块
-```js
-{
-  path: '',
-  name: 'Index',
-  component: () => import('@/views/index.vue'),
-  redirect: '/modal', // 修改这里，如果想要展示对话框模块则重定向到对话框的路由
-  children: [
-    ...
-    // 对话框
-    {
-      path: '/modal',
-      name: 'Modal',
-      component: () => import('@/views/modal/modal.vue'),
-    },
-    ...
-  ]
-}
-```
-
 ## 问题收集
 
-- 不建议提交Issues来反馈问题，请添加群：519823105，向群主或管理反馈问题，谢谢。
+- 不建议提交Issues来反馈问题，请[点击添加](https://qm.qq.com/cgi-bin/qm/qr?k=emElFJNT_JVk4_jlZoglkWrCYK1MV_OU&jump_from=webapi&authKey=6Wjo7Dga2sBNQt1vURL63PkaJgS+1d+k7GBkxgD4FOPgQiAkrFgkDYN15Zm3pEvq)群：519823105，向群主或管理反馈问题，谢谢。
