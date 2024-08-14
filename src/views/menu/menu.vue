@@ -23,7 +23,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 // 从store中获取全局的菜单key
-const menuKey = ref(store.getters.getMenuKey)
+const menuKey = ref(store.getters.getModuleMenuKey)
 
 const menuOptions = ref([
   { key: 'home', title: '首页', checked: false, link: 'Home' },

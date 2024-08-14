@@ -4,7 +4,7 @@
       <div class="layout-sider-head">
         <img src="../assets/img/logo.png" alt="">
       </div>
-      <o-menu :options="treeData" v-model="checkedItem">
+      <o-menu :options="treeData" v-model="checkedItem" @change="menuChange">
 
       </o-menu>
     </div>
@@ -46,10 +46,10 @@ const treeData = ref([
   { key: 'TreeSelect', label: '树选择' },
 ])
 const transitionName = ref()
-const checkedItem = ref('Msg')
+const checkedItem = ref(store.getters.getMenuKey) || 'Msg'
 
 onMounted(() => {
-  console.log(router.options.routes)
+  console.log(store.getters.getMenuKey)
 
 })
 
@@ -65,6 +65,10 @@ router.beforeEach((to: any, from: any) => {
     transitionName.value = ''
   }
 })
+
+const menuChange = () => {
+  console.log(checkedItem.value)
+}
 
 
 </script>
@@ -86,6 +90,7 @@ router.beforeEach((to: any, from: any) => {
       align-items: center;
       height: 100px;
       border-bottom: 1px solid var(--border-color);
+      margin-bottom: 10px;
 
       img {
         height: 80px;

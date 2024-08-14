@@ -20,7 +20,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 interface Props {
-  modelValue?: string,
+  modelValue: string,
   options: Array<TreeOption>
 }
 
@@ -45,7 +45,7 @@ watch(() => router.currentRoute.value, (value: any) => {
 }, { deep: true, immediate: true })
 
 onMounted(() => {
-  const topPath = checkedKey.value || 'Home'
+  const topPath = checkedKey.value
   checkMenu(topPath, treeOptions.value)
 
 })
