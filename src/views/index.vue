@@ -1,5 +1,5 @@
 <template>
-  <div class="views-main">
+  <div class="system-main">
     <div class="layout-sider">
       <div class="layout-sider-head">
         <img src="../assets/img/logo.png" alt="">
@@ -70,10 +70,10 @@ router.beforeEach((to: any, from: any) => {
 </script>
 
 <style lang="less" scoped>
-.views-main {
+.system-main {
   display: flex;
   position: relative;
-  background: none;
+  background-image: none;
   // height: 100vh;
   // width: 100vw;
   .layout-sider {
@@ -96,7 +96,27 @@ router.beforeEach((to: any, from: any) => {
     overflow: hidden;
     display: flex;
     position: relative; 
-    flex-wrap: 1;
+    flex-grow: 1;
+    height: 100vh;
+
+    &::before {
+    content: "";
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../assets/img/common_bg.jpg) no-repeat;
+    // background-color: #ec846433;
+    background-size:cover;
+    // background-size: 100% auto;
+    background-position: center;
+    // backdrop-filter: blur(100px);
+    // -webkit-backdrop-filter: blur(100px);
+    // filter: blur(2px);
+  }
+
   }
 }
 
@@ -105,7 +125,7 @@ router.beforeEach((to: any, from: any) => {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 2s;
+  transition: transform 0.5s;
 }
 
 .slide-right-enter-from {

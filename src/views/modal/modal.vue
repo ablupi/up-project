@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-view-main">
+  <div class="views-main">
     <button @click="state.showModal = true">弹出对话框</button>
     <o-modal 
       :open="state.showModal" 

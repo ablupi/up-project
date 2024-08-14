@@ -1,5 +1,5 @@
 <template>
-  <div class="message-main">
+  <div class="views-main">
     <button @click="success">成功</button>
     <button @click="warning">警告</button>
     <button @click="error">错误</button>
