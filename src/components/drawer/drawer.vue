@@ -82,13 +82,16 @@ const clickOther = (event: any) => {
 .placement-right {
   right: 0;
   transform: translate(400px);
+  opacity: 0;
 }
 .placement-left {
   left: 0;
   transform: translate(-400px);
+  opacity: 0;
 }
 .show-drawer {
   transform: translateX(0) !important;
+  opacity: 1;
 }
 .background-enter-active,
 .background-leave-active {
