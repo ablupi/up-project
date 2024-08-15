@@ -1,5 +1,5 @@
 <template>
-  <button class="verify-code-main" @click="focus">
+  <button class="verify-code-main" @click="focus" @blur="blur">
     <div 
       class="code-item"
       :class="{ 'code-item-input': count.isInput }"
@@ -85,6 +85,12 @@ const focus = () => {
     }
   }
   emits('change', count.value)
+}
+
+const blur = () => {
+  for (const item of countList.value) {
+    item.isInput = false
+  }
 }
 </script>
 
