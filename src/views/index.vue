@@ -44,9 +44,10 @@ const treeData = ref([
   { key: 'Menu', label: '水平菜单' },
   { key: 'Cascader', label: '级联下拉选择器' },
   { key: 'TreeSelect', label: '树选择' },
+  { key: 'VerifyCode', label: '验证码输入框' },
 ])
 const transitionName = ref()
-const checkedItem = ref(store.getters.getMenuKey) || 'Msg'
+const checkedItem = ref(store.getters.getMenuKey) || 'VerifyCode'
 
 onMounted(() => {
   console.log(store.getters.getMenuKey)

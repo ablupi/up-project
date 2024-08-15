@@ -198,7 +198,16 @@ const routes: Array<RouteRecordRaw> = [
           index: 16
         },
       },
-      
+      // 验证码输入框
+      {
+        path: '/verify-code',
+        name: 'VerifyCode',
+        component: () => import('@/views/verify-code/verify-code.vue'),
+        meta: {
+          index: 17
+        },
+      },
+
     ]
   },
 ]
