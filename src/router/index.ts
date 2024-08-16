@@ -207,7 +207,25 @@ const routes: Array<RouteRecordRaw> = [
           index: 17
         },
       },
-
+      // 验证码输入框
+      {
+        path: '/number-input',
+        name: 'NumberInput',
+        component: () => import('@/views/number-input/number-input.vue'),
+        meta: {
+          index: 18
+        },
+      },
+      // 验证码输入框
+      {
+        path: '/steps',
+        name: 'Steps',
+        component: () => import('@/views/steps/steps.vue'),
+        meta: {
+          index: 19
+        },
+      },
+      
     ]
   },
 ]

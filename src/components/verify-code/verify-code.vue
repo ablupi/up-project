@@ -63,7 +63,7 @@ const inputCode = (e: any) => {
       break;
   }
   for (const [index, item] of countList.value.entries()) {
-    if (!item.num) {
+    if (!item.num) { 
       item.num = e.key
       focus()
       if (index === props.counts - 1)

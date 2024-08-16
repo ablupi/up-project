@@ -45,14 +45,10 @@ const treeData = ref([
   { key: 'Cascader', label: '级联下拉选择器' },
   { key: 'TreeSelect', label: '树选择' },
   { key: 'VerifyCode', label: '验证码输入框' },
+  { key: 'Steps', label: '步骤条' },
 ])
 const transitionName = ref()
-const checkedItem = ref(store.getters.getMenuKey) || 'VerifyCode'
-
-onMounted(() => {
-  console.log(store.getters.getMenuKey)
-
-})
+const checkedItem = ref(store.getters.getMenuKey) || 'NumberInput'
 
 // 在路由守卫中通过meta来判断页面切换时的方向
 router.beforeEach((to: any, from: any) => {
@@ -68,7 +64,7 @@ router.beforeEach((to: any, from: any) => {
 })
 
 const menuChange = () => {
-  console.log(checkedItem.value)
+  // console.log(checkedItem.value)
 }
 
 
