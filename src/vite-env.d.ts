@@ -8,3 +8,6 @@ declare module '*.vue' {
 declare module 'vuex'
 declare module 'element-resize-detector'
 declare module '@/assets/js/iscroll-probe'
+declare module 'xml-reader' {
+  export const parseSync: any
+}

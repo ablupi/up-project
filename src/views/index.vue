@@ -46,12 +46,14 @@ const treeData = ref([
   { key: 'TreeSelect', label: '树选择' },
   { key: 'VerifyCode', label: '验证码输入框' },
   { key: 'Steps', label: '步骤条' },
+  { key: 'Icon', label: '图标' },
 ])
 const transitionName = ref()
 const checkedItem = ref(store.getters.getMenuKey) || 'NumberInput'
 
 // 在路由守卫中通过meta来判断页面切换时的方向
 router.beforeEach((to: any, from: any) => {
+  console.log(to)
   if (to.meta.index > from.meta.index) {
     transitionName.value = 'slide-right'
   }

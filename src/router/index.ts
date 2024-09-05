@@ -14,7 +14,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Msg',
         component: () => import('@/views/message/message.vue'),
         meta: {
-          index: 1
+          index: 1,
+          parent: 'Index'
         },
       },
       // 对话框
@@ -23,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Modal',
         component: () => import('@/views/modal/modal.vue'),
         meta: {
-          index: 2
+          index: 2,
+          parent: 'Index'
         },
       },
       // 输入框
@@ -32,7 +34,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Search',
         component: () => import('@/views/search/search.vue'),
         meta: {
-          index: 3
+          index: 3,
+          parent: 'Index'
         },
       },
       // 文字提示/消息提示/提示框
@@ -41,7 +44,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Tooltip',
         component: () => import('@/views/tooltip/tooltip.vue'),
         meta: {
-          index: 4
+          index: 4,
+          parent: 'Index'
         },
       },
       // 分页
@@ -50,7 +54,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Pagination',
         component: () => import('@/views/pagination/pagination.vue'),
         meta: {
-          index: 5
+          index: 5,
+          parent: 'Index'
         },
       },
       // 气泡卡片
@@ -59,7 +64,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'popover',
         component: () => import('@/views/popover/popover.vue'),
         meta: {
-          index: 6
+          index: 6,
+          parent: 'Index'
         },
       },
       // 下拉选择
@@ -68,7 +74,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Select',
         component: () => import('@/views/select/select-reset.vue'),
         meta: {
-          index: 7
+          index: 7,
+          parent: 'Index'
         },
       },
       // 抽屉
@@ -77,7 +84,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Drawer',
         component: () => import('@/views/drawer/drawer.vue'),
         meta: {
-          index: 8
+          index: 8,
+          parent: 'Index'
         },
       },
       // 开关
@@ -86,7 +94,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Switch',
         component: () => import('@/views/switch/switch.vue'),
         meta: {
-          index: 9
+          index: 9,
+          parent: 'Index'
         },
       },
       // 滑动条
@@ -95,7 +104,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Slider',
         component: () => import('@/views/slider/slider.vue'),
         meta: {
-          index: 10
+          index: 10,
+          parent: 'Index'
         },
       },
       // 水平菜单
@@ -107,7 +117,8 @@ const routes: Array<RouteRecordRaw> = [
         // 因为菜单需要高度绑定路由跳转来实现切换，如果只是样式上切换的话就没什么意义了
         redirect: '/menu/home',
         meta: {
-          index: 11
+          index: 11,
+          parent: 'Index'
         },
         children: [
           {
@@ -159,7 +170,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Cascader',
         component: () => import('@/views/cascader/cascader.vue'),
         meta: {
-          index: 12
+          index: 12,
+          parent: 'Index'
         },
       },
       // 树形组件
@@ -168,7 +180,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Tree',
         component: () => import('@/views/tree/tree.vue'),
         meta: {
-          index: 13
+          index: 13,
+          parent: 'Index'
         },
       },
       // 树选择
@@ -177,7 +190,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'TreeSelect',
         component: () => import('@/views/treeSelect/treeSelect.vue'),
         meta: {
-          index: 14
+          index: 14,
+          parent: 'Index'
         },
       },
       // 级联树
@@ -186,7 +200,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'TreeCascader',
         component: () => import('@/views/tree/tree-cascader.vue'),
         meta: {
-          index: 15
+          index: 15,
+          parent: 'Index'
         },
       },
       // 垂直菜单
@@ -195,7 +210,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'menuVertical',
         component: () => import('@/views/menu/menu-vertical.vue'),
         meta: {
-          index: 16
+          index: 16,
+          parent: 'Index'
         },
       },
       // 验证码输入框
@@ -204,7 +220,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'VerifyCode',
         component: () => import('@/views/verify-code/verify-code.vue'),
         meta: {
-          index: 17
+          index: 17,
+          parent: 'Index'
         },
       },
       // 验证码输入框
@@ -213,7 +230,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'NumberInput',
         component: () => import('@/views/number-input/number-input.vue'),
         meta: {
-          index: 18
+          index: 18,
+          parent: 'Index'
         },
       },
       // 验证码输入框
@@ -222,7 +240,18 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Steps',
         component: () => import('@/views/steps/steps.vue'),
         meta: {
-          index: 19
+          index: 19,
+          parent: 'Index'
+        },
+      },
+      // 验证码输入框
+      {
+        path: '/icon',
+        name: 'Icon',
+        component: () => import('@/views/icon/icon.vue'),
+        meta: {
+          index: 20,
+          parent: 'Index'
         },
       },
       
